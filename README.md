@@ -37,7 +37,7 @@
 ### Association
 
 - belongs_to :user
-- has_one  :orders
+- has_one  :order
 
 ## orders テーブル
 
@@ -45,24 +45,24 @@
 | -------- | ---------- | ------------------------------ |
 | item     | references | null: false, foreign_key: true |
 | user     | references | null: false, foreign_key: true |
-| shipment | references | null: false, foreign_key: true  |
 
 ### Association
 
-- belongs_to :items
-- has_one    :shipments
+- belongs_to :user, item
+- has_one    :shipment
 
 ## shipments テーブル
 
-| Column             | Type    | Options     |
-| ------------------ | ------- | ----------- |
-| postal_code        | integer | null: false |
-| item_prefecture_id | integer | null: false |
-| city               | string  | null: false |
-| building           | string  |             |
-| phone_number       | string  | null: false |
-
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| postal_code        | integer    | null: false                    |
+| item_prefecture_id | integer    | null: false                    |
+| city               | string     | null: false                    |
+| addresses          | string     |                                |
+| building           | string     |                                |
+| phone_number       | string     | null: false                    |
+| order              | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :orders
+- belongs_to :order
