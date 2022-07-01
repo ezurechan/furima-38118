@@ -55,7 +55,7 @@
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| postal_code        | integer    | null: false                    |
+| postal_code        | string     | null: false                    |
 | item_prefecture_id | integer    | null: false                    |
 | city               | string     | null: false                    |
 | addresses          | string     |                                |
