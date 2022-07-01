@@ -6,13 +6,12 @@
 | --------------------- | ------- | --------------------------|
 | nickname              | string  | null: false               |
 | email                 | string  | null: false, unique: true |
-| password              | string  | null: false               |
-| password_confirmation | string  | null: false               |
+| encrypted_password    | string  | null: false               |
 | last-name             | string  | null: false               |
 | first_name            | string  | null: false               |
 | lastname_kana         | string  | null: false               |
 | firstname_kana        | string  | null: false               |
-| birth_date            | integer | null: false               |
+| birth_date            | date    | null: false               |
 
 
 
@@ -24,17 +23,17 @@
 
 ## items テーブル
 
-| Column                   | Type    | Options                        |
-| ------------------------ | ------- | ------------------------------ |
-| item_name                | string  | null: false                    |
-| item_info                | text    | null: false                    |
-| item_category            | string  | null: false                    |
-| item_sales_status        | string  | null: false, foreign_key: true |
-| item_shipping_fee_status | string  | null: false, foreign_key: true |
-| item_prefecture          | string  | null: false, foreign_key: true |
-| item_scheduled_delivery  | integer | null: false, foreign_key: true |
-| item_price               | integer | null: false, foreign_key: true |
-
+| Column                      | Type       | Options                        |
+| --------------------------- | ---------- | ------------------------------ |
+| item_name                   | string     | null: false                    |
+| item_info                   | text       | null: false                    |
+| item_category               | string     | null: false                    |
+| item_sales_status_id        | integer    | null: false, foreign_key: true |
+| item_shipping_fee_status_id | integer    | null: false, foreign_key: true |
+| item_prefecture_id          | integer    | null: false, foreign_key: true |
+| item_scheduled_delivery     | integer    | null: false, foreign_key: true |
+| item_price                  | integer    | null: false, foreign_key: true |
+| user                        | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -44,10 +43,6 @@
 
 | Column         | Type    | Options     |
 | -------------- | ------- | ----------- |
-| card_number    | integer | null: false |
-| card-exp-month | integer | null: false |
-| card-exp-year  | integer | null: false |
-| card-cvc       | integer | null: false |
 | postal_code    | integer | null: false |
 | prefecture     | string  | null: false |
 | city           | string  | null: false |
@@ -58,7 +53,7 @@
 
 - belongs_to :user
 
-## comments テーブル
+## shipments テーブル
 
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
