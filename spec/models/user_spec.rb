@@ -15,6 +15,13 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include "Email can't be blank"
     end
+    it '重複したemailが存在する場合は登録できない' do
+      @user.save
+      another_user = FactoryBot.build(:user)
+      another_user.email = @user.email
+      another_user.valid?
+      expect(another_user.errors.full_messages).to include('Email has already been taken')
+    end
     it 'passwordが空では登録できない' do
       @user.password = ''
       @user.valid?
@@ -37,9 +44,21 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
-    it 'passwordは半角英数字混合でなければ登録できない' do
-      @user.password = '000000'
-      @user.password_confirmation = '000000'
+    it '英字のみのパスワードでは登録できない' do
+      @user.password = 'aaaaaa'
+      @user.password_confirmation = 'aaaaaa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password は半角英数を両方含む必要があります')
+    end
+    it '数字のみのパスワードでは登録できない' do
+      @user.password = '111111'
+      @user.password_confirmation = '111111'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password は半角英数を両方含む必要があります')
+    end
+    it '全角文字を含むパスワードでは登録できない' do
+      @user.password = 'ああああああ'
+      @user.password_confirmation = 'ああああああ'
       @user.valid?
       expect(@user.errors.full_messages).to include('Password は半角英数を両方含む必要があります')
     end
@@ -72,12 +91,12 @@ RSpec.describe User, type: :model do
     it 'お名前(全角カナ)は、名字がないと登録できない' do
       @user.lastname_kana = ''
       @user.valid?
-      expect(@user.errors.full_messages).to include "Last name can't be blank"
+      expect(@user.errors.full_messages).to include "Lastname kana can't be blank"
     end
     it 'お名前(全角カナ)は、名前がないと登録できない' do
       @user.firstname_kana = ''
       @user.valid?
-      expect(@user.errors.full_messages).to include "First name can't be blank"
+      expect(@user.errors.full_messages).to include "Firstname kana can't be blank"
     end
 
     it '名字(全角カナ)は、全角カタカナでの入力がないと登録できない' do
@@ -97,5 +116,8 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Birth date can't be blank")
     end
+  end
+  it '全ての値が存在すれば登録できる' do
+    expect(@user).to be_valid
   end
 end

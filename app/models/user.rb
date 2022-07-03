@@ -6,10 +6,10 @@ class User < ApplicationRecord
 
   validates :nickname, presence: true
 
-  VALID_FIRSTNAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
+  VALID_FIRSTNAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
   validates :first_name, presence: true, format: { with: VALID_FIRSTNAME_REGEX, message: 'は全角（漢字・ひらがな・カタカナ）で入力する必要があります' }
 
-  VALID_LASTNAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
+  VALID_LASTNAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
   validates :last_name, presence: true, format: { with: VALID_LASTNAME_REGEX, message: 'は全角（漢字・ひらがな・カタカナ）で入力する必要があります' }
 
   VALID_LASTNAMEKANA_REGEX = /\A[ァ-ヴー]+\z/u.freeze
