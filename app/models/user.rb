@@ -12,10 +12,10 @@ class User < ApplicationRecord
   VALID_LASTNAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
   validates :last_name, presence: true, format: { with: VALID_LASTNAME_REGEX, message: 'は全角（漢字・ひらがな・カタカナ）で入力する必要があります' }
 
-  VALID_LASTNAMEKANA_REGEX = /\A[ァ-ヴー]+\z/u.freeze
+  VALID_LASTNAMEKANA_REGEX = /\A[ァ-ヶー]+\z/.freeze
   validates :lastname_kana, presence: true, format: { with: VALID_LASTNAMEKANA_REGEX, message: 'は全角カタカナで入力する必要があります' }
 
-  VALID_FIRSTNAMEKANA_REGEX = /\A[ァ-ヴー]+\z/u.freeze
+  VALID_FIRSTNAMEKANA_REGEX = /\A[ァ-ヶー]+\z/.freeze
   validates :firstname_kana, presence: true, format: { with: VALID_FIRSTNAMEKANA_REGEX, message: 'は全角カタカナで入力する必要があります' }
 
   validates :birth_date, presence: true

@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
     @user = FactoryBot.build(:user)
   end
 
+#異常系テスト
   describe 'ユーザー新規登録' do
     it 'nicknameが空では登録できない' do
       @user.nickname = ''
@@ -117,6 +118,8 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Birth date can't be blank")
     end
   end
+  
+  #正常系テスト
   it '全ての値が存在すれば登録できる' do
     expect(@user).to be_valid
   end
