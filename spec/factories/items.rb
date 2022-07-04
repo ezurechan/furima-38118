@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :item do
     association :user
 
-    id                          { '1' }
     item_name                   { 'あああ' }
     item_info                   { 'あああ' }
     item_price                  { '1000' }
