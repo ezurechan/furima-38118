@@ -1,7 +1,8 @@
 class OrderForm
   include ActiveModel::Model
-  attr_accessor :item_id, :user_id, :postal_code, :item_prefecture_id, :city, :addresses, :building, :phone_number
+  attr_accessor :item_id, :user_id, :postal_code, :item_prefecture_id, :city, :addresses, :building, :phone_number, :token
   
+  validates :token, presence: true
   validates :item_id, presence: true
   validates :user_id, presence: true
   VALID_POSTAL_CODE_REGEX = /\A\d{3}[-]\d{4}\z/
