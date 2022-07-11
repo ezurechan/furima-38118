@@ -13,10 +13,6 @@ RSpec.describe OrderForm, type: :model do
     it 'すべての値が正しく入力されていれば保存できること' do
       expect(@order_form).to be_valid
     end
-    it 'addressesは空でも保存できること' do
-      @order_form.addresses = ''
-      expect(@order_form).to be_valid
-    end
     it 'buildingは空でも保存できること' do
       @order_form.building = ''
       expect(@order_form).to be_valid
@@ -39,15 +35,40 @@ RSpec.describe OrderForm, type: :model do
       @order_form.valid?
       expect(@order_form.errors.full_messages).to include "Item prefecture can't be blank"
     end
+    it 'cityが空だと保存できないこと' do
+      @order_form.city = ''
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("City can't be blank")
+    end
+    it 'addressesが空だと保存できないこと' do
+      @order_form.addresses = ''
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Addresses can't be blank")
+    end
     it 'phone_numberが空だと保存できないこと' do
       @order_form.phone_number = ''
       @order_form.valid?
       expect(@order_form.errors.full_messages).to include("Phone number can't be blank")
     end
-    it 'phone_numberが10桁以上11桁以内の半角数値のみ保存可能なこと' do
+    it 'phone_numberが電話番号が9桁以下だと保存できないこと' do
       @order_form.phone_number = '1234567'
       @order_form.valid?
       expect(@order_form.errors.full_messages).to include("Phone number is invalid")
+    end
+    it 'phone_numberが電話番号が12桁以上だと保存できないこと' do
+      @order_form.phone_number = '1234567890123'
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Phone number is invalid")
+    end
+    it 'phone_numberに半角英数字以外が含まれていると保存できないこと' do
+      @order_form.phone_number = 'あああ'
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Phone number is invalid")
+    end
+    it 'itemが紐付いていないと保存できない' do
+      @order_form.item_id = nil
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Item can't be blank")
     end
     it 'userが紐付いていないと保存できない' do
       @order_form.user_id = nil
