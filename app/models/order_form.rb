@@ -14,7 +14,7 @@ class OrderForm
   validates :phone_number, presence: true, format: { with: VALID_PHONE_NUMBER_REGEX }
 
   def save
-    order_id = Order.create(item_id: item_id, user_id: user_id)
-    Shipment.create( postal_code: postal_code, item_prefecture_id: item_prefecture_id, city: city, addresses: addresses, building: building, phone_number: phone_number, order: order)
+    order = Order.create(item_id: item_id, user_id: user_id)
+    Shipment.create( postal_code: postal_code, item_prefecture_id: item_prefecture_id, city: city, addresses: addresses, building: building, phone_number: phone_number, order: order.id)
   end
  end
