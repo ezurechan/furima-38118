@@ -5,9 +5,6 @@ RSpec.describe Item, type: :model do
     @item = FactoryBot.build(:item)
   end
 
-
-
-
   describe '商品登録' do
     context '商品登録できるとき' do
       it '全ての値が存在すれば登録できる' do
@@ -52,40 +49,35 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Item price must be less than or equal to 9999999')
       end
       it 'item_category_idを選択しないと登録できない' do
-        @item.item_category_id  = '1'
+        @item.item_category_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include "Item category can't be blank"
       end
       it 'item_prefecture_idを選択しないと登録できない' do
-        @item.item_prefecture_id  = '1'
+        @item.item_prefecture_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include "Item prefecture can't be blank"
       end
       it 'item_sales_status_idを選択しないと登録できない' do
-        @item.item_sales_status_id  = '1'
+        @item.item_sales_status_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include "Item sales status can't be blank"
       end
       it 'item_scheduled_delivery_idを選択しないと登録できない' do
-        @item.item_scheduled_delivery_id  = '1'
+        @item.item_scheduled_delivery_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include "Item scheduled delivery can't be blank"
       end
       it 'item_shipping_fee_status_idを選択しないと登録できない' do
-        @item.item_shipping_fee_status_id  = '1'
+        @item.item_shipping_fee_status_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include "Item shipping fee status can't be blank"
       end
       it 'userが紐付いていないと保存できない' do
-         @item.user = nil
-         @item.valid?
-         expect(@item.errors.full_messages).to include('User must exist')
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
   end
-
-
-
-
-
 end
