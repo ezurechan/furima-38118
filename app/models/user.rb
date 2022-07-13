@@ -3,9 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
   has_many :comments
-  
+
   validates :nickname, presence: true
 
   VALID_FIRSTNAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
