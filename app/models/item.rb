@@ -10,7 +10,6 @@ class Item < ApplicationRecord
 
   has_one :order
   has_one_attached :image
-  has_many :comments
 
   validates :image, presence: true
   validates :item_name, presence: true
